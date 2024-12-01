@@ -1,0 +1,23 @@
+query = QSqlQuery()
+        query.exec("""
+        CREATE TABLE IF NOT EXISTS coffee (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            roast_level TEXT NOT NULL,
+            ground_or_bean TEXT NOT NULL,
+            taste_description TEXT,
+            price REAL,
+            package_size REAL
+        )
+        """)
+
+        query.exec("SELECT COUNT(*) FROM coffee")
+        query.next()
+        if query.value(0) == 0:
+            query.exec("""
+            INSERT INTO coffee (name, roast_level, ground_or_bean, taste_description, price, package_size)
+            VALUES
+            ('Espresso', 'Dark', 'Ground', 'Bold and rich flavor', 12.99, 250),
+            ('Arabica', 'Medium', 'Beans', 'Smooth and mild taste', 10.99, 500),
+            ('Robusta', 'Light', 'Ground', 'Strong and earthy flavor', 9.99, 250)
+            """)
